@@ -1,0 +1,96 @@
+
+<style type="text/css">
+body{
+	overflow: hidden
+}
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+#CDT{
+ height: auto;
+ color: #000;
+   font-family: "Montserrat", sans-serif;
+ font-weight: bold;
+ text-align: center;
+ padding: 15px;
+ -webkit-border-top-left-radius: 0px;
+ -khtml-border-radius-topleft: 0px;
+ -moz-border-radius-topleft: 0px;
+ border-top-left-radius: 0px;
+
+}
+{
+ margin-bottom: 10px;
+}
+#CDT_sat{
+ font-size: 20px;
+}
+#CDT_sat .day{
+ font-size: 30px;
+}
+#CDT_sat .hour,#CDT_sat .min,#CDT_sat .sec{
+ font-size: 30px;
+}
+@media (max-width: 750px) {
+  #CDT {
+    padding: 0 10px
+  }
+  #CDT_sat{
+ font-size: 15px;
+}
+#CDT_sat .day{
+ font-size: 25px;
+}
+#CDT_sat .hour,#CDT_sat .min,#CDT_sat .sec{
+ font-size: 25px;
+}
+}
+</style>
+<div id="CDT">
+<p></p>
+<div id="CDT_sat"></div>
+<p>参加期限　2018年10月31日</p>
+</div>
+<script language="JavaScript" type="text/javascript">
+function CountdownTimer(elm,tl,mes){
+ this.initialize.apply(this,arguments);
+}
+CountdownTimer.prototype={
+ initialize:function(elm,tl,mes) {
+  this.elem = document.getElementById(elm);
+  this.tl = tl;
+  this.mes = mes;
+ },countDown:function(){
+  var timer='';
+  var today=new Date();
+  var day=Math.floor((this.tl-today)/(24*60*60*1000));
+  var hour=Math.floor(((this.tl-today)%(24*60*60*1000))/(60*60*1000));
+  var min=Math.floor(((this.tl-today)%(24*60*60*1000))/(60*1000))%60;
+  var sec=Math.floor(((this.tl-today)%(24*60*60*1000))/1000)%60%60;
+  var milli=Math.floor(((this.tl-today)%(24*60*60*1000))/10)%100;
+  var me=this;
+
+  if( ( this.tl - today ) > 0 ){
+   if (day) timer += '<span class="day">'+day+'日</span>';
+   if (hour) timer += '<span class="hour">'+hour+'時間</span>';
+//   timer += '<span class="min">'+this.addZero(min)+'分</span><span class="sec">'+this.addZero(sec)+'秒</span><span class="milli">'+this.addZero(milli)+'</span>';
+   timer += '<span class="min">'+this.addZero(min)+'分</span><span class="sec">'+this.addZero(sec)+'秒</span>';
+   this.elem.innerHTML = timer;
+   tid = setTimeout( function(){me.countDown();},10 );
+  }else{
+   this.elem.innerHTML = this.mes;
+   return;
+  }
+ },addZero:function(num){ return ('0'+num).slice(-2); }
+}
+function CDT_sat(){
+ var today = new Date();
+ var tl = new Date('2018/10/31 23:59:55');
+ var timer = new CountdownTimer('CDT_sat',tl,'キャンペーン受付期間は終了しました');
+ timer.countDown();
+}
+CDT_sat();
+</script>
